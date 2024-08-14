@@ -1,7 +1,8 @@
 import AdBanner from './components/AdBanner';
 import Cotizaciones from './components/Cotizaciones/Cotizaciones';
 import LiveVideo from './components/LiveVideo';
-const channelIds = ['UCeY0bbntWzzVIaj2z3QigXg'] // Reemplaza con tus IDs de canal
+
+const channelIds = ['UCWSfXECGo1qK_H7SXRaUSMg'] // Reemplaza con tus IDs de canal
 
 export default function Page () {
   return (
