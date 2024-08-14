@@ -5,6 +5,7 @@ import { useEffect } from "react";
 const AdBanner = ({
   dataAdFormat,
   dataFullWidthResponsive,
+  idd
 }) => {
   useEffect(() => {
     const loadAdSenseScript = () => {
@@ -21,7 +22,6 @@ const AdBanner = ({
           const script = document.createElement('script');
           script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
           script.async = true;
-
           script.onload = () => resolve();
           script.onerror = (error) => reject(new Error('Failed to load AdSense script: ' + error.message));
 
@@ -60,7 +60,7 @@ const AdBanner = ({
     <ins
       className="adsbygoogle"
       style={{ display: "block" }}
-      data-ad-slot="5171626815"
+      data-ad-slot={idd}
       data-ad-format={dataAdFormat}
       data-full-width-responsive={dataFullWidthResponsive ? "true" : "false"}
     ></ins>
