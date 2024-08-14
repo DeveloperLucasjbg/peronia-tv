@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 
 const AdBanner = ({
-  dataAdSlot,
   dataAdFormat,
   dataFullWidthResponsive,
 }) => {
@@ -61,7 +60,7 @@ const AdBanner = ({
     <ins
       className="adsbygoogle"
       style={{ display: "block" }}
-      data-ad-slot={dataAdSlot}
+      data-ad-slot="5171626815"
       data-ad-format={dataAdFormat}
       data-full-width-responsive={dataFullWidthResponsive ? "true" : "false"}
     ></ins>
