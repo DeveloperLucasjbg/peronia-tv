@@ -1,19 +1,18 @@
 "use client"; // Añadir esta línea al principio del archivo
 
 import { useEffect, useRef, useState } from 'react';
-import { getDollarRates } from '../../services/dollarService';
+import { getRiskService } from '../../services/riskServise';
+// ESTA BASADO EN COTIZACIONES ; FALTA CAMBIAR VARIABLES
 
-export default function Cotizaciones() {
+export default function Riesgo() {
   const [dollarRates, setDollarRates] = useState([]);
-  const [previousRates, setPreviousRates] = useState([]);
   const intervalRef = useRef(null);
 
   // Función para obtener las tasas del dólar
   const fetchDollarRates = async () => {
     try {
-      const rates = await getDollarRates();
+      const rates = await getRiskService();
       if (rates) {
-        setPreviousRates(dollarRates); // Guarda las tasas actuales antes de actualizarlas
         setDollarRates(rates);
       }
     } catch (error) {
@@ -37,39 +36,27 @@ export default function Cotizaciones() {
   }, []); // Solo ejecutar en el montaje del componente
 
   // Función para determinar si los datos han cambiado
-  const hasChanged = (rate) => {
-    const previousRate = previousRates.find(r => r.casa === rate.casa);
-    return previousRate && (previousRate.compra !== rate.compra || previousRate.venta !== rate.venta);
-  };
 
-  if (dollarRates.length === 0) {
-    return <p style={{ textAlign: 'center' }}>Cargando cotizaciones...</p>;
+
+  if (!dollarRates) {
+    return <p style={{ textAlign: 'center' }}>Cargando riesgo...</p>;
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'space-around', width: ' ', gap: '1rem' }}>
-      {dollarRates.map((rate, index) => {
-        const isChanged = hasChanged(rate);
-
-        return (
           <div
-            key={index}
             style={{
+              marginTop: '1rem',
               border: '1px solid #ccc',
               borderRadius: '5px',
               padding: '1rem',
               marginBottom: '1rem',
-              backgroundColor: isChanged ? '#dff0d8' : '#f4f4f4', // Resaltar cambios con un color de fondo verde claro
+              backgroundColor: '#f4f4f4', // Resaltar cambios con un color de fondo verde claro
               transition: 'background-color 0.5s', // Transición suave para el cambio de color
             }}
           >
-            <strong> {rate.nombre}</strong>
-            <p><strong>Compra:</strong> {rate.compra}</p>
-            <p><strong>Venta:</strong> {rate.venta}</p>
-            <p><strong></strong> {new Date(rate.fechaActualizacion).toLocaleString()}</p>
+            <strong>riesgo pais</strong>
+            <p><strong>Compra:</strong> {dollarRates.valor}</p>
+            <p><strong></strong> {new Date(dollarRates.fecha).toLocaleString()}</p>
           </div>
-        );
-      })}
-    </div>
   );
 }
